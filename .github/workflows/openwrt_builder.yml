@@ -9,8 +9,8 @@ on:
 #    types: started
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-24.10
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -30,8 +30,8 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - arch: "x86_64"
-            target: "x86"
+          - arch: "mediatek_filogic"
+            target: "mediatek"
             kernel: "6.6"
 
     steps:
@@ -86,12 +86,6 @@ jobs:
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
-
-    - name: 执行回滚
-      if: env.REVERT_COMMIT == 'true' && !cancelled()
-      run: |
-        cd $(curl -fsSL https://raw.githubusercontent.com/ywt114/diy/main/directory | tr '\n' ' ')
-        git reset --hard $(curl -fsSL https://raw.githubusercontent.com/ywt114/diy/main/commit | tr '\n' ' ')
 
     - name: 安装 feeds
       working-directory: ./openwrt
