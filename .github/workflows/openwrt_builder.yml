@@ -14,7 +14,6 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
   REVERT_COMMIT: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -95,9 +94,6 @@ jobs:
     - name: 自定义配置
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: 下载包文件
       id: package
