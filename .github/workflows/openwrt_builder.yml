@@ -10,7 +10,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-24.10
+  REPO_TAG: v24.10
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -70,7 +70,7 @@ jobs:
 
     - name: 克隆源代码
       run: |
-        git clone -b $REPO_BRANCH $REPO_URL openwrt
+        git clone -b $REPO_TAG --single-branch $REPO_URL openwrt
         sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=${{ matrix.target.kernel }}/g" openwrt/target/linux/${{ matrix.target.target }}/Makefile
         sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=${{ matrix.target.kernel }}/g" openwrt/target/linux/${{ matrix.target.target }}/Makefile
 
